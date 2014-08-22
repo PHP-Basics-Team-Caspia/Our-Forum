@@ -21,6 +21,7 @@ while ($Topic = $allTopicsDB->fetch_assoc()) {
 if (sizeof($allTopics) == 0) {
     echo 'No topics in this category. <a href="index.php">Go Back</a>';
 } else {
+    echo ' <a href="index.php">Go Back</a></br>';
     echo '
     <table border="1">
      <tr>
@@ -40,7 +41,7 @@ if (sizeof($allTopics) == 0) {
 
         echo "
         <td>{$createdOn}</td>
-        <td><a href=\"userProfile.php?userid={$creator['user_id']}\">{$creator['user_login']}</a></td>
+        <td><a href=\"{$ProfileViewerURL}?id={$creator['user_id']}\">{$creator['user_login']}</a></td>
         <td><a href=\"viewTopic.php?id={$id}\">{$title}</a></td>
         <td>{$content}</td>
         <td>{$tags}</td>
