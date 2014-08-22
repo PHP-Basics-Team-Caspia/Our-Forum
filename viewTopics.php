@@ -1,4 +1,5 @@
 <?php
+$showedContentLength = 20;
 include_once('includes/header.php');
 if (!(isset($_GET['catid'])) || empty($_GET['catid'])) {
     echo 'Invalid Category. <a href="index.php">Go Back</a>';
@@ -26,18 +27,25 @@ if (sizeof($allTopics) == 0) {
         <th>Created On</th><th>Author</th><th>Title</th><th>Content</th><th>Tags</th><th>Views</th><th>Votes</th>
      </tr>';
     foreach ($allTopics as $currTopic) {
-        $creator = mysqli_query($connection, 'SELECT `user_login` FROM `users` WHERE user_id =' . $currTopic['question_creatorID']);
-        $creator = $creator->fetch_row();
+        $id = $currTopic['question_id'];
+        $creator = mysqli_query($connection, 'SELECT * FROM `users` WHERE user_id =' . $currTopic['question_creatorID']);
+        $creator = $creator->fetch_assoc();
+        $createdOn = date('d-m-Y H:m',strtotime($currTopic['question_created']));
+        $title = $currTopic['question_content'];
+        $content = substr($currTopic['question_content'],0, $showedContentLength).'...';
+        $tags = $currTopic['question_tags'];
+        $views = $currTopic['question_views'];
+        $votes = $currTopic['question_votes'];
         echo '<tr>';
 
         echo "
-        <td>{$currTopic['question_created']}</td>
-        <td>$creator[0]</td>
-        <td>{$currTopic['question_title']}</td>
-        <td>{$currTopic['question_content']}</td>
-        <td>{$currTopic['question_tags']}</td>
-        <td>{$currTopic['question_views']}</td>
-        <td>{$currTopic['question_votes']}</td>";
+        <td>{$createdOn}</td>
+        <td><a href=\"userProfile.php?userid={$creator['user_id']}\">{$creator['user_login']}</a></td>
+        <td><a href=\"viewTopic.php?id={$id}\">{$title}</a></td>
+        <td>{$content}</td>
+        <td>{$tags}</td>
+        <td>{$views}</td>
+        <td>{$votes}</td>";
 
 
         echo ' </tr > ';

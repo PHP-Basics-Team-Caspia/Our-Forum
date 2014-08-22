@@ -1,8 +1,18 @@
 <?php 
 $pageTitle='User Profile';
-include 'includes/header.php'; 
-//$select1=mysqli_query($connection,'SELECT * FROM answers INNER JOIN questions '
-        //. 'ON answers.answer_creatorID=questions.question_creatorID WHERE questions.question_creatorID="'.$_SESSION['user_id'].'" ');
+include 'includes/header.php';
+if (isset($_GET['userid'])) {
+    $userID = $_GET['userid'];
+} else {
+    $userID = $_SESSION['user_id'];
+}
+$userDB = mysqli_query($connection, "SELECT * FROM `users` WHERE `user_id` = {$userID}");
+$user = $userDB->fetch_assoc();
+if (empty($user)) {
+    echo 'Invalid user <a href="index.php">Go back</a>';
+    return;
+}
+
 $selectQuestions=mysqli_query($connection,'SELECT * FROM questions WHERE questions.question_creatorID="'.$_SESSION['user_id'].'" ');
 $selectAnswers=mysqli_query($connection,'SELECT * FROM answers WHERE answers.answer_creatorID="'.$_SESSION['user_id'].'" ');
 ?>

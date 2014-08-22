@@ -42,7 +42,7 @@ function logIn($select, $user_rank,$user_email, $username, $pass,$user_id){
     Парола:<input type="password" id="pass" name="pass" />
   </div>
   <div>
-      <input type="submit" id="logIn" value="Влезте" /><input type="checkbox" name="mycheckbox">Влез като администратор</input><a href="Reg.php">Регистрация</a>
+      <input type="submit" id="logIn" value="Влезте" /><input type="checkbox" name="mycheckbox">Влез като администратор</input><a href="register.php">Регистрация</a>
   </div>
 </form>
 
