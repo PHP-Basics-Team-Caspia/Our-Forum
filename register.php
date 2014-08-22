@@ -32,10 +32,10 @@ if($_POST)
             $email=mysqli_real_escape_string($connection,$email);
             $userOrAdmin='user';
             $select=mysqli_query($connection,'SELECT * FROM users Where `user_login` = "'.$username.'"');
-            $textForMistace='Заето потребителско име!';
+            $textForMistake='Заето потребителско име!';
             
             
-           $reg=reg($select,$textForMistace,$username,$pass,$email,$connection);
+           $reg=reg($select,$textForMistake,$username,$pass,$email,$connection);
             if ($reg&&count($_FILES) > 0) {
                 $file=$_FILES['picture'];
                 $file_name=$file['name'];

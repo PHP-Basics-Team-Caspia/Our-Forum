@@ -6,7 +6,7 @@ function reg($select,$textForMistace,$username,$pass,$email,$connection){
             return false;
     }
         else{
-            echo 'Успешна регистрация<a href="logIn.php">Влезте в профила си</a><br/>';
+            echo 'Успешна регистрация<a href="login.php">Влезте в профила си</a><br/>';
            
             $ins='INSERT INTO `users`(`user_login`, `user_password`,`user_email`)
                     VALUES ("'.$username.'","'.$pass.'","'.$email.'")';
