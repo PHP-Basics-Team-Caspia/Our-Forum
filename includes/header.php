@@ -7,7 +7,6 @@ if(!$connection){
     echo 'Сриване на системата!!!';
     exit();
 }
-$username;
 ?>
 <!DOCTYPE html>
 <html>
