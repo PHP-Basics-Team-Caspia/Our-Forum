@@ -1,5 +1,6 @@
 <?php
 session_start();
+$ProfileViewerURL = 'userProfile.php';
 include 'patterns/Database.php';
 include 'functions.php';
 $db=Database::getInstance();

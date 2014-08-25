@@ -4,7 +4,7 @@ $showedContentLength = 20;
 echo '<a href="index.php">Go Home</a><br/>';
 try {
     //Get Topics
-    $allTopics = getTopicsFromCategory($_GET['catid']);
+    $allTopics = getTopics($_GET['catid']);
 
     //Upper Information Table
     echo '
@@ -28,7 +28,7 @@ try {
 
             echo "
         <td>{$createdOn}</td>
-        <td><a href=\"{$ProfileViewerURL}?id={$creator['user_id']}\">{$creator['user_login']}</a></td>
+        <td><a href=\"{$ProfileViewerURL}?userid={$creator['user_id']}\">{$creator['user_login']}</a></td>
         <td><a href=\"viewTopic.php?id={$id}\">{$title}</a></td>
         <td>{$content}</td>
         <td>{$tags}</td>

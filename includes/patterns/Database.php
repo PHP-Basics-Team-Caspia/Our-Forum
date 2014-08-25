@@ -48,7 +48,7 @@ class Database
         $this->connection=new mysqli($this->host,$this->username,$this->pass,$this->database);
         // Error handling
 		if(mysqli_connect_error()) {
-			trigger_error("Failed to conencto to MySQL: " . mysql_connect_error(),
+			trigger_error("Failed to connect to MySQL: " . mysql_connect_error(),
 				 E_USER_ERROR);
 		}
         else{
