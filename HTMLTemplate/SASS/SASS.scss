@@ -1,5 +1,6 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url(http://fonts.googleapis.com/css?family=Lobster);
+
 @mixin border() {
     border: 1px solid white;
     border-radius: 10px;
@@ -9,10 +10,21 @@ ul li, a {
     list-style: none;
     color: white;
     text-decoration: none;
+     transition: 1s;
+    &:visited {
+        color: white;
+    }
+    &:link {
+        color: white;
+    }
+    &:hover{
+        color:#428bca;
+        text-decoration:underline;
+    }
 }
 
 img {
-    width: 200px;
+    width: 98%;
 }
 
 @mixin background() {
@@ -46,19 +58,25 @@ body {
             text-align: center;
 
             div {
-                a{
-                font-family: 'Oswald', sans-serif;
-                font-size: 40px;
-                 position:relative;
-                bottom:10px;
+                a {
+                    font-family: 'Oswald', sans-serif;
+                    font-size: 40px;
+                    position: relative;
+                    bottom: 10px;
+
+                    &:visited {
+                        color: white;
+                    }
                 }
             }
-            span{
-                color:white;
+
+            span {
+                text-align: center;
+                color: white;
                 font-family: 'Lobster', cursive;
-                font-size:20px;
-                position:relative;
-                bottom:20px;
+                font-size: 20px;
+                position: relative;
+                bottom: 20px;
             }
         }
 
@@ -74,6 +92,45 @@ body {
                 height: 1000px;
                 @include border;
                 float: right;
+                //Topic Style!!
+                article {
+                    font-family: 'Oswald', sans-serif;
+                    color: white;
+                    @include border;
+                    display: flex;
+                    margin: 5px;
+                    padding: 5px;
+
+                    .topic_info {
+                        width: 13%;
+                    }
+
+                    .vote {
+                        width: 3%;
+                        .glyphicon glyphicon-chevron-up{
+                            color:green;
+                            &:hover{
+                                 color:green;
+                            }
+                        }
+                        .glyphicon glyphicon-chevron-down{
+                            color:red;
+                             &:hover{
+                                 color:red;
+                            }
+                        }
+                    }
+
+                    .topic_content {
+                        width: 80%;
+                    }
+
+                    img {
+                        width: 97%;
+                        height: 80px;
+                        border-radius: 5px;
+                    }
+                }
             }
 
             nav {

@@ -3,10 +3,18 @@
 ul li, a {
   list-style: none;
   color: white;
-  text-decoration: none; }
+  text-decoration: none;
+  transition: 1s; }
+  ul li:visited, a:visited {
+    color: white; }
+  ul li:link, a:link {
+    color: white; }
+  ul li:hover, a:hover {
+    color: #428bca;
+    text-decoration: underline; }
 
 img {
-  width: 200px; }
+  width: 98%; }
 
 body {
   margin: 0;
@@ -43,7 +51,10 @@ body {
         font-size: 40px;
         position: relative;
         bottom: 10px; }
+        body #wrapper header div a:visited {
+          color: white; }
       body #wrapper header span {
+        text-align: center;
         color: white;
         font-family: 'Lobster', cursive;
         font-size: 20px;
@@ -75,6 +86,32 @@ body {
         border: 1px solid white;
         border-radius: 10px;
         float: right; }
+        body #wrapper #content section article {
+          font-family: 'Oswald', sans-serif;
+          color: white;
+          border: 1px solid white;
+          border-radius: 10px;
+          display: flex;
+          margin: 5px;
+          padding: 5px; }
+          body #wrapper #content section article .topic_info {
+            width: 13%; }
+          body #wrapper #content section article .vote {
+            width: 3%; }
+            body #wrapper #content section article .vote .glyphicon glyphicon-chevron-up {
+              color: green; }
+              body #wrapper #content section article .vote .glyphicon glyphicon-chevron-up:hover {
+                color: green; }
+            body #wrapper #content section article .vote .glyphicon glyphicon-chevron-down {
+              color: red; }
+              body #wrapper #content section article .vote .glyphicon glyphicon-chevron-down:hover {
+                color: red; }
+          body #wrapper #content section article .topic_content {
+            width: 80%; }
+          body #wrapper #content section article img {
+            width: 97%;
+            height: 80px;
+            border-radius: 5px; }
       body #wrapper #content nav ul {
         margin: 0 auto; }
       body #wrapper #content footer {
