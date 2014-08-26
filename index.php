@@ -35,7 +35,7 @@ try {
             <td>{$content}</td>
             <td>";
         foreach($tags as $tag) {
-            echo '<a href="viewTag.php?id=' . $tag . '">' . $tag . ' </a>';
+            echo '<a href="viewTag.php?name=' . $tag . '">' . $tag . ' </a>';
         }
         echo "</td>
             <td>{$views}</td>

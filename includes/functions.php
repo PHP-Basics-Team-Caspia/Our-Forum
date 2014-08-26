@@ -44,10 +44,10 @@ function addTopic($userID, $title, $content, $tags, $category, $approved = null)
         throw new Exception('Съдържанието е прекалено късо');
     }
     if ($approved != null) {
-    $ins = "INSERT INTO `questions` (`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`, `question_approved`)
+        $ins = "INSERT INTO `questions` (`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`, `question_approved`)
               VALUES ('{$userID}', '{$title}', '{$content}', '{$tags}', '{$category}', 1)";
     } else {
-          $ins = "INSERT INTO `questions`(`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`)
+        $ins = "INSERT INTO `questions`(`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`)
                     VALUES ('{$userID}', '{$title}', '{$content}', '{$tags}', '{$category}')";
     }
     $q = mysqli_query($GLOBALS['connection'], $ins);
@@ -56,9 +56,12 @@ function addTopic($userID, $title, $content, $tags, $category, $approved = null)
     }
 
 }
-function approveTopic($topicID) {
+
+function approveTopic($topicID)
+{
     mysqli_query($GLOBALS['connection'], "UPDATE `questions` SET `question_approved` = 1 WHERE `question_id` = {$topicID}");
 }
+
 function getTopics($categoryID = null)
 {
     if ($categoryID !== null) {
@@ -207,18 +210,35 @@ function login($userName, $pass)
         throw new Exception("Invalid username or password");
     }
 }
-function searchFile($user_avatar,$user_id){
-    if($user_avatar==0){
-        $name="defaultAvatar";
-    }
-    else $name=$user_id;
-    $dir= 'pictures/avatars/';
+
+function searchFile($user_avatar, $user_id)
+{
+    if ($user_avatar == 0) {
+        $name = "defaultAvatar";
+    } else $name = $user_id;
+    $dir = 'pictures/avatars/';
     $files = scandir($dir);
-    for ($i = 2; $i < count($files); $i++)
-    {
-        $file= explode('.', $files[$i]);
-        if($file[0]==$name){
+    for ($i = 2; $i < count($files); $i++) {
+        $file = explode('.', $files[$i]);
+        if ($file[0] == $name) {
             return implode('.', $file);
         }
     }
+}
+
+function getTopicsWithTag($tagName)
+{
+    $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions`");
+    while ($topic = $allTopicsDB->fetch_assoc()) {
+        $topicTags = explode(', ', $topic['question_tags']);
+        if (array_search($tagName, $topicTags)) {
+            $topics[] = $topic;
+        }
+    }
+    if (empty($topics)) {
+        throw new Exception('No topics exist with this tag');
+    }
+
+    return $topics;
+
 }
