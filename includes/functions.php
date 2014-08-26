@@ -82,7 +82,25 @@ function getTopics($categoryID = null)
     }
     return $allTopics;
 }
+function getTopic($topicID)
+{
+    $topicDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_id` = {$topicID}");
+    if ($topicDB->num_rows == 0) {
+        throw new Exception('No topics exist in this category');
+    }
+    if ($topicDB == false) {
+        throw new Exception('Invalid Topic');
+    }
+    $topic = $topicDB->fetch_assoc();
 
+    $topicViews = $topic['question_views'] + 1;
+    $updateViews = mysqli_query($GLOBALS['connection'], "UPDATE `questions` SET `question_views` = {$topicViews} WHERE `questions`.`question_id` = {$topicID}");
+    if ($updateViews == false) {
+        throw new Exception('Unable to update topic views');
+    }
+
+    return $topic;
+}
 function getAnswersFromTopic($topicID)
 {
     $topicAnswersDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `answers` WHERE `answer_questionID` = {$topicID} ORDER BY `answer_created` ASC");
