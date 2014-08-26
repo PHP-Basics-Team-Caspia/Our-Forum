@@ -18,7 +18,7 @@ if(!$connection){
 <head>
     <title>TEMP</title>
     <meta charset="utf8">
-    <link href="styles/SASS.css" rel="stylesheet" />
+    <link href="/Projects/CaspiaForum/styles/SASS.css" rel="stylesheet" />
 </head>
 <body>
 <div id="wrapper">

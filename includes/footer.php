@@ -34,7 +34,7 @@
 
         </li>
         <li>
-            <img src="pictures/giHubImg.png" />
+            <img src="/Projects/CaspiaForum//pictures/giHubImg.png" />
         </li>
         <li>
             <div id="fb-root" ></div>

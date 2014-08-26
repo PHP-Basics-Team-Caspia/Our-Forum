@@ -20,7 +20,7 @@ body {
   margin: 0;
   height: 100%; }
   body #wrapper {
-    background-image: url("../pictures/SpringPoppies1-1-230.jpg");
+    background-image: url("/Projects/CaspiaForum/pictures/SpringPoppies1-1-230.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: repeat-x;

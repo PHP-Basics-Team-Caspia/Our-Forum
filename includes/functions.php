@@ -208,3 +208,18 @@ function login($userName, $pass)
         throw new Exception("Invalid username or password");
     }
 }
+function searchFile($user_avatar,$user_id){
+    if($user_avatar==0){
+        $name="defaultAvatar";
+    }
+    else $name=$user_id;
+    $dir= 'pictures/avatars/';
+    $files = scandir($dir);
+    for ($i = 2; $i < count($files); $i++)
+    {
+        $file= explode('.', $files[$i]);
+        if($file[0]==$name){
+            return implode('.', $file);
+        }
+    }
+}

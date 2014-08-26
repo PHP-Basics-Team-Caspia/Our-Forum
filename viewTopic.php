@@ -19,7 +19,7 @@ try {
     echo 'Topic: <br/><table border="1">';
     echo "
     <tr>
-    <td><a href=\"{$ProfileViewerURL}?id={$topicCreator['user_id']}\">{$topicCreator['user_login']}</a></td>
+    <td><a href=\"{$ProfileViewerURL}?userid={$topicCreator['user_id']}\">{$topicCreator['user_login']}</a></td>
     <td>{$topic['question_content']}</td>
     <td>{$topic['question_created']}</td>
     <td>Views: {$topic['question_views']}</td>

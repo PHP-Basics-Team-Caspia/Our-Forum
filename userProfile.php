@@ -1,4 +1,5 @@
 <?php
+
 $pageTitle = 'User Profile';
 include 'includes/header.php';
 try {
@@ -7,15 +8,8 @@ try {
     } else {
         $user = getUser($_SESSION['user_id']);
     }
-
-    if($user["user_avatar"]==0){
-        $dir    = 'pictures/аvatars/default/';
-        $file = scandir($dir, 1);
-        $src=$dir.$file[0];
-    }else{
-        $src='pictures/avatars/'.$users['user_id'];
-    }
-    echo "<img src=\"$src\"/>";
+    $avatarSRC = searchFile($user['user_avatar'], $user['user_id']);
+    echo "<img src=\"pictures/avatars/{$avatarSRC}\" style='width: 100px !important; height: 100px !important;'/>";
     echo 'User Name: ' . $user['user_login'] . "<br/>";
 
     try {
@@ -42,3 +36,4 @@ try {
 } catch (Exception $e1) {
     echo $e1->getMessage();
 }
+include 'includes/footer.php';
