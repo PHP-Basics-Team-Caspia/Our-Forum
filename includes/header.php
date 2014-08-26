@@ -19,6 +19,7 @@ if(!$connection){
     <title>TEMP</title>
     <meta charset="utf8">
     <link href="styles/SASS.css" rel="stylesheet" />
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
 <div id="wrapper">

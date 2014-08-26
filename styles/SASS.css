@@ -17,14 +17,11 @@ img {
   width: 98%; }
 
 body {
-  margin: 0;
-  height: 100%; }
+  margin: 0; }
   body #wrapper {
-    background-image: url("../pictures/SpringPoppies1-1-230.jpg");
-    background-size: cover;
+    background-image: url("../images/SpringPoppies1-1-230.jpg");
     background-attachment: fixed;
-    background-repeat: repeat-x;
-    height: 100%; }
+    background-repeat: repeat; }
     body #wrapper header {
       height: 70px;
       background: -moz-linear-gradient(left, rgba(83, 18, 91, 0) 0%, rgba(83, 18, 91, 0.85) 2%, rgba(83, 18, 91, 0.85) 98%, rgba(83, 18, 91, 0) 100%);
@@ -75,12 +72,13 @@ body {
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0053125b', endColorstr='#0053125b',GradientType=1 );
       /* IE6-9 */
       width: 93%;
-      min-height: 640px;
       margin: 0 auto;
-      padding: 5px 35px; }
+      padding: 5px 35px;
+      overflow: auto;
+      min-height: 720px; }
       body #wrapper #content section {
+        min-height: 720px;
         width: 81%;
-        min-height: 620px;
         border: 1px solid white;
         border-radius: 10px;
         float: right; }
@@ -110,13 +108,12 @@ body {
           body #wrapper #content section article .topic_content {
             width: 90%; }
           body #wrapper #content section article img {
-            width: 97%;
+            width: 80%;
             height: 80px;
             border-radius: 5px; }
       body #wrapper #content nav ul {
         margin: 0 auto; }
       body #wrapper #content footer {
-        min-height: 620px;
         width: 18%;
         border: 1px solid white;
         border-radius: 10px; }

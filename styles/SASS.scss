@@ -42,15 +42,11 @@ img {
 
 body {
     margin: 0;
-    height: 100%;
 
     #wrapper {
-        background-image: url('../../pictures/SpringPoppies1-1-230.jpg');
-        background-size: cover;
+        background-image: url('../images/SpringPoppies1-1-230.jpg');
         background-attachment: fixed;
-        background-repeat: repeat-x;
-        height: 100%;
-
+        background-repeat:repeat;
         header {
             height: 70px;
             @include background;
@@ -85,13 +81,14 @@ body {
         #content {
             @include background;
             width: 93%;
-            min-height: 640px;
             margin: 0 auto;
             padding: 5px 35px;
-
+            overflow:auto;
+            min-height:720px;
             section {
+                            min-height:720px;
+
                 width: 81%;
-                min-height: 620px;
                 @include border;
                 float: right;
                 //Topic Style!!
@@ -135,7 +132,7 @@ body {
                     }
 
                     img {
-                        width: 97%;
+                        width: 80%;
                         height: 80px;
                         border-radius: 5px;
                     }
@@ -149,7 +146,6 @@ body {
             }
 
             footer {
-                min-height: 620px;
                 width: 18%;
                 @include border;
 
