@@ -66,9 +66,9 @@ function getTopics($categoryID = null)
 {
     if ($categoryID !== null) {
         $category = getCategories($categoryID);
-        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_categoryID` = {$category['category_ID']}");
+        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_categoryID` = {$category['category_ID']} ORDER BY `question_created` DESC");
     } else {
-        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions`");
+        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` ORDER BY `question_created` DESC");
     }
     if ($allTopicsDB == false) {
         throw new Exception('Invalid topic');
@@ -81,26 +81,6 @@ function getTopics($categoryID = null)
         $allTopics[] = $topic;
     }
     return $allTopics;
-}
-
-function getTopic($topicID)
-{
-    $topicDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_id` = {$topicID}");
-    if ($topicDB->num_rows == 0) {
-        throw new Exception('No topics exist in this category');
-    }
-    if ($topicDB == false) {
-        throw new Exception('Invalid Topic');
-    }
-    $topic = $topicDB->fetch_assoc();
-
-    $topicViews = $topic['question_views'] + 1;
-    $updateViews = mysqli_query($GLOBALS['connection'], "UPDATE `questions` SET `question_views` = {$topicViews} WHERE `questions`.`question_id` = {$topicID}");
-    if ($updateViews == false) {
-        throw new Exception('Unable to update topic views');
-    }
-
-    return $topic;
 }
 
 function getAnswersFromTopic($topicID)
@@ -228,8 +208,8 @@ function searchFile($user_avatar, $user_id)
 
 function getTopicsWithTag($tagName)
 {
-    $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions`");
-    while ($topic = $allTopicsDB->fetch_assoc()) {
+    $allTopicsDB = getTopics();
+    foreach($allTopicsDB as $topic) {
         $topicTags = explode(', ', $topic['question_tags']);
         if (array_search($tagName, $topicTags) !== false) {
             $topics[] = $topic;
