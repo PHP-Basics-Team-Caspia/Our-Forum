@@ -19,14 +19,14 @@ if(!$connection){
     <title><?php echo $pageTitle; ?></title>
     <meta charset="utf8">
     <link href="/Projects/CaspiaForum/styles/SASS.css" rel="stylesheet" />
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/pictures/avatars/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
 <div id="wrapper">
     <header>
         <div>
             <a href="index.php">
-                Saksia.com
+                Saksia.bg
             </a> <br />
                 <span>
                     Together for green future
