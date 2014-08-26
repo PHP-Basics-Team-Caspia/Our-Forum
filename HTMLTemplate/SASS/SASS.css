@@ -95,9 +95,12 @@ body {
           margin: 5px;
           padding: 5px; }
           body #wrapper #content section article .topic_info {
-            width: 13%; }
+            width: 13%;
+            text-align: center; }
           body #wrapper #content section article .vote {
-            width: 3%; }
+            margin-top: 30px;
+            text-align: center;
+            width: 5%; }
             body #wrapper #content section article .vote .glyphicon glyphicon-chevron-up {
               color: green; }
               body #wrapper #content section article .vote .glyphicon glyphicon-chevron-up:hover {
@@ -107,7 +110,7 @@ body {
               body #wrapper #content section article .vote .glyphicon glyphicon-chevron-down:hover {
                 color: red; }
           body #wrapper #content section article .topic_content {
-            width: 80%; }
+            width: 90%; }
           body #wrapper #content section article img {
             width: 97%;
             height: 80px;
