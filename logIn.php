@@ -20,7 +20,6 @@ if($_POST)
 <?php
 function logIn($select, $user_rank,$user_email, $username, $pass,$user_id){
     if($select->num_rows>0){
-                        $test=1;
                         header('Location:index.php');
                         $_SESSION['rank']=$user_rank;
                         $_SESSION['user_name']=$username;

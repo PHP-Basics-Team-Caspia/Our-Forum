@@ -119,53 +119,7 @@ function getUserAnswers($userID)
     return $userAnswers;
 }
 
-function addAnswer($topicID, $creatorID, $content)
+function addAnswer()
 {
-    $content = htmlentities($content);
-    $add = mysqli_query($GLOBALS['connection'], "INSERT INTO `answers` (`answer_questionID`, `answer_creatorID`, `answer_content`)
-        VALUES ({$topicID}, {$creatorID}, \"{$content}\")");
-    if ($add == false) {
-        throw new Exception('Unable to add answer');
-    }
-}
 
-function register($username, $pass, $email, $picture = null)
-{
-    $username = trim($username);
-    $username = mysqli_real_escape_string($GLOBALS['connection'], $username); // make data save before send query to MySQL
-    $pass = trim($pass);
-    $pass = mysqli_real_escape_string($GLOBALS['connection'], $pass);
-    $email = trim($email);
-    $email = mysqli_real_escape_string($GLOBALS['connection'], $email);
-    $select = mysqli_query($GLOBALS['connection'], 'SELECT * FROM users Where `user_login` = "' . $username . '"');
-    if ($select->num_rows > 0) {
-        throw new Exception('Username already taken');
-    }
-    $ins = 'INSERT INTO `users`(`user_login`, `user_password`,`user_email`)
-                    VALUES ("' . $username . '","' . $pass . '","' . $email . '")';
-    $q = mysqli_query($GLOBALS['connection'], $ins);
-    if ($q == false) {
-        throw new Exception('Query not executed');
-    }
-    if ($picture == null) {
-        $avatar = 'pictures/defaultAvatar.jpg';
-    } else {
-        $avatar = $picture;
-        $file_type = $avatar['type'];
-        $file_size = $avatar['size'];
-        $file_path = $avatar['tmp_name'];
-    }
-    $userDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `users` WHERE `user_login` = \"{$username}\"");
-    $user = $userDB->fetch_assoc();
-    $picName = $user['user_id'] . '.' . str_replace('image/', '', $file_type);
-    if (!($file_type == "image/jpeg" || $file_type == "image/png" || $file_type == "image/gif")) {
-        throw new Exception('Invalid extension for avatar');
-    }
-    if (!($file_size < 1048576)) {
-        throw new Exception('File is too big.');
-    }
-    $uploaded = move_uploaded_file($file_path, 'pictures' . DIRECTORY_SEPARATOR . 'avatars' . DIRECTORY_SEPARATOR . $picName);
-    if ($uploaded == false) {
-        throw new Exception('File upload failed');
-    }
 }

@@ -13,11 +13,12 @@ if(!$connection){
     exit();
 }
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title><?= $pageTitle;?></title>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--    <head>-->
+<!--        <title>--><?//= $pageTitle;?><!--</title>-->
+<!--        <meta charset="UTF-8">-->
+<!--        <link type="text/css" rel="stylesheet" href="styles/styles.css" />-->
+<!--    </head>-->
+<!--    <body>-->
+<!--        -->
