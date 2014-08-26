@@ -67,15 +67,15 @@ function getTopics($categoryID = null)
     } else {
         $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions`");
     }
+    if ($allTopicsDB == false) {
+        throw new Exception('Invalid topic');
+    }
     if ($allTopicsDB->num_rows == 0) {
-        throw new Exception('Invalid category ID');
+        throw new Exception('No topics in this category.');
     }
     $allTopics = array();
     while ($topic = $allTopicsDB->fetch_assoc()) {
         $allTopics[] = $topic;
-    }
-    if (sizeof($allTopics) == 0) {
-        throw new Exception('No topics in this category.');
     }
     return $allTopics;
 }
@@ -84,6 +84,9 @@ function getTopic($topicID)
 {
     $topicDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_id` = {$topicID}");
     if ($topicDB->num_rows == 0) {
+        throw new Exception('No topics exist in this category');
+    }
+    if ($topicDB == false) {
         throw new Exception('Invalid Topic');
     }
     $topic = $topicDB->fetch_assoc();

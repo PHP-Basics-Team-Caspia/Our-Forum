@@ -43,14 +43,16 @@ try {
         echo '<tr>';
         echo "<td><a href=\"{$ProfileViewerURL}?userid={$answerCreator['user_id']}\">{$answerCreator['user_login']}</a></td>";
         echo "<td>{$answer['answer_content']}</td>";
+        echo "<td>{$answer['answer_created']}</td>";
         echo '</tr>';
     }
     echo '</table>';
 } catch (Exception $e4) {
     echo $e4->getMessage();
 }
-?>
-<form method="post">
+
+echo '<form method="post">
     <textarea name="content"></textarea>
     <input type="submit"/>
-</form>
+</form>';
+include_once 'includes/footer.php';
