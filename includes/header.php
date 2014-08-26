@@ -16,7 +16,7 @@ if(!$connection){
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>TEMP</title>
+    <title><?php echo $pageTitle; ?></title>
     <meta charset="utf8">
     <link href="/Projects/CaspiaForum/styles/SASS.css" rel="stylesheet" />
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">

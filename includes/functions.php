@@ -102,7 +102,7 @@ function getTopic($topicID)
 
 function getAnswersFromTopic($topicID)
 {
-    $topicAnswersDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `answers` WHERE `answer_questionID` = {$topicID}");
+    $topicAnswersDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `answers` WHERE `answer_questionID` = {$topicID} ORDER BY `answer_created` ASC");
     if ($topicAnswersDB->num_rows == 0) {
         throw new Exception('No answers exist in this topic');
     }
@@ -159,8 +159,8 @@ function register($username, $pass, $email, $picture = null)
     if ($select->num_rows > 0) {
         throw new Exception('Username already taken');
     }
-    $ins = 'INSERT INTO `users`(`user_login`, `user_password`,`user_email`)
-                    VALUES ("' . $username . '","' . $pass . '","' . $email . '")';
+    $ins = "INSERT INTO `users` (`user_login`, `user_password`,`user_email`)
+                    VALUES (\"{$username}\", md5(\"{$pass}\"), \"{$email}\")";
     $q = mysqli_query($GLOBALS['connection'], $ins);
     if ($q == false) {
         throw new Exception('Query not executed');
@@ -184,7 +184,7 @@ function register($username, $pass, $email, $picture = null)
         if ($uploaded == false) {
             throw new Exception('File upload failed');
         } else {
-            logIn($username, $pass);
+            login($username, $pass);
         }
     }
 }
@@ -195,8 +195,7 @@ function login($userName, $pass)
     $userName = mysqli_real_escape_string($GLOBALS['connection'], $userName);
     $pass = trim($pass);
     $pass = mysqli_real_escape_string($GLOBALS['connection'], $pass);
-
-    $userDB = mysqli_query($GLOBALS['connection'], 'SELECT * FROM users Where `user_login` = "' . $userName . '" AND `user_password`="' . $pass . '"');
+    $userDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM users Where `user_login` = \"{$userName}\" AND `user_password`=\"" . md5($pass) . '"');
     if ($userDB->num_rows > 0) {
         $user = $userDB->fetch_assoc();
         $_SESSION['rank'] = $user['user_rank'];

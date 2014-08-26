@@ -23,10 +23,8 @@ include 'includes/header.php';
         if ($_POST) {
             try {
             if ($_FILES['picture']['name'] == "") {
-                echo 'Picture is empty';
                 $reg = register($_POST['username'], $_POST['pass'], $_POST['email']);
             } else {
-                echo 'Picture is not empty';
                 $reg = register($_POST['username'], $_POST['pass'], $_POST['email'], $_FILES['picture']);
             }
             } catch (Exception $e) {

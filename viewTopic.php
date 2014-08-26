@@ -1,7 +1,7 @@
 <?php
 include_once('includes/header.php');
 
-if($_POST) {
+if(isset($_POST['content'])) {
     addAnswer($_GET['id'], $_SESSION['user_id'], $_POST['content']);
 }
 
@@ -9,7 +9,7 @@ try {
     $topic = getTopic($_GET['id']);
 //Go back
     $category = getCategories($topic['question_categoryID']);
-    echo "<a href=\"viewTopics.php?catid={$category['category_ID']}\">Go back to {$category['category_name']}</a>" . '<br/>';
+    echo "<a href=\"index.php?catid={$category['category_ID']}\">Go back to {$category['category_name']}</a>" . '<br/>';
 //Print out the topic
     try {
         $topicCreator = getUser($topic['question_creatorID']);
@@ -50,9 +50,10 @@ try {
 } catch (Exception $e4) {
     echo $e4->getMessage();
 }
-
+if (isset($_SESSION['user_id'])) {
 echo '<form method="post">
     <textarea name="content"></textarea>
     <input type="submit"/>
 </form>';
+}
 include_once 'includes/footer.php';
