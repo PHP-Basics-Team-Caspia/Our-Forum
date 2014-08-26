@@ -1,7 +1,7 @@
 <?php
 session_start();
 $ProfileViewerURL = 'userProfile.php';
-include 'patterns/Database.php';
+include 'Database.php';
 include 'functions.php';
 $db=Database::getInstance();
 $db->setParameters('localhost','reaths3_caspia','teamcaspia','reaths3_caspia');
@@ -13,12 +13,25 @@ if(!$connection){
     exit();
 }
 ?>
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--    <head>-->
-<!--        <title>--><?//= $pageTitle;?><!--</title>-->
-<!--        <meta charset="UTF-8">-->
-<!--        <link type="text/css" rel="stylesheet" href="styles/styles.css" />-->
-<!--    </head>-->
-<!--    <body>-->
-<!--        -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TEMP</title>
+    <meta charset="utf8">
+    <link href="styles/SASS.css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+    <header>
+        <div>
+            <a href="index.php">
+                Saksia.com
+            </a> <br />
+                <span>
+                    Together for green future
+                </span>
+        </div>
+    </header>
+    <div id="content">
+        <section>
+

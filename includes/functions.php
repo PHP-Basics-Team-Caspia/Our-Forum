@@ -19,6 +19,11 @@ function getCategories($categoryID = null)
     }
 }
 
+function addCategory($name)
+{
+    mysqli_query($GLOBALS['connection'], "INSERT INTO `categories` (`category_name`) VALUES (\"{$name}\")");
+}
+
 function getUser($userID)
 {
     $userDB = mysqli_query($GLOBALS['connection'], 'SELECT * FROM `users` WHERE user_id =' . $userID);
@@ -28,7 +33,7 @@ function getUser($userID)
     return $userDB->fetch_assoc();
 }
 
-function addTopic($userID, $title, $content, $tags, $category)
+function addTopic($userID, $title, $content, $tags, $category, $approved = null)
 {
     $minimumChars = 50;
     if (mb_strlen($title) < 5) {
@@ -38,12 +43,22 @@ function addTopic($userID, $title, $content, $tags, $category)
     if (mb_strlen($content) < $minimumChars) {
         throw new Exception('Съдържанието е прекалено късо');
     }
-    $ins = 'INSERT INTO `questions`(`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`)
-                  VALUES ("' . $userID . '","' . $title . '","' . $content . '","' . $tags . '","' . $category . '")';
+    if ($approved != null) {
+    $ins = "INSERT INTO `questions` (`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`, `question_approved`)
+              VALUES ('{$userID}', '{$title}', '{$content}', '{$tags}', '{$category}', 1)";
+    } else {
+          $ins = "INSERT INTO `questions`(`question_creatorID`, `question_title`,`question_content`,`question_tags`,`question_categoryID`)
+                    VALUES ('{$userID}', '{$title}', '{$content}', '{$tags}', '{$category}')";
+    }
     $q = mysqli_query($GLOBALS['connection'], $ins);
-    return true;
-}
+    if ($q == false) {
+        throw new Exception('Query error');
+    }
 
+}
+function approveTopic($topicID) {
+    mysqli_query($GLOBALS['connection'], "UPDATE `questions` SET `question_approved` = 1 WHERE `question_id` = {$topicID}");
+}
 function getTopics($categoryID = null)
 {
     if ($categoryID !== null) {
@@ -147,48 +162,46 @@ function register($username, $pass, $email, $picture = null)
     if ($q == false) {
         throw new Exception('Query not executed');
     }
-    if ($picture == null) {
-        logIn($username,$pass);
-    } else {
+    if ($picture != null) {
+        mysqli_query($GLOBALS['connection'], "UPDATE `users` SET `user_avatar` = 1 WHERE `user_login` = \"{$username}\"");
         $avatar = $picture;
         $file_type = $avatar['type'];
         $file_size = $avatar['size'];
         $file_path = $avatar['tmp_name'];
-    }
-    $userDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `users` WHERE `user_login` = \"{$username}\"");
-    $user = $userDB->fetch_assoc();
-    $picName = $user['user_id'] . '.' . str_replace('image/', '', $file_type);
-    if (!($file_type == "image/jpeg" || $file_type == "image/png" || $file_type == "image/gif")) {
-        throw new Exception('Invalid extension for avatar');
-    }
-    if (!($file_size < 1048576)) {
-        throw new Exception('File is too big.');
-    }
-    $uploaded = move_uploaded_file($file_path, 'pictures' . DIRECTORY_SEPARATOR . 'avatars' . DIRECTORY_SEPARATOR . $picName);
-    if ($uploaded == false) {
-        throw new Exception('File upload failed');
-    }
-    else{
-        logIn($username,$pass);
+        $userDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `users` WHERE `user_login` = \"{$username}\"");
+        $user = $userDB->fetch_assoc();
+        $picName = $user['user_id'] . '.' . str_replace('image/', '', $file_type);
+        if (!($file_type == "image/jpeg" || $file_type == "image/png" || $file_type == "image/gif")) {
+            throw new Exception('Invalid extension for avatar');
+        }
+        if (!($file_size < 1048576)) {
+            throw new Exception('File is too big.');
+        }
+        $uploaded = move_uploaded_file($file_path, 'pictures' . DIRECTORY_SEPARATOR . 'avatars' . DIRECTORY_SEPARATOR . $picName);
+        if ($uploaded == false) {
+            throw new Exception('File upload failed');
+        } else {
+            logIn($username, $pass);
+        }
     }
 }
 
-function login($userName,$pass){
-    $userName=trim($userName);
-    $userName=mysqli_real_escape_string($GLOBALS['connection'],$userName);
-    $pass=trim($pass);
-    $pass=mysqli_real_escape_string($GLOBALS['connection'],$pass);
+function login($userName, $pass)
+{
+    $userName = trim($userName);
+    $userName = mysqli_real_escape_string($GLOBALS['connection'], $userName);
+    $pass = trim($pass);
+    $pass = mysqli_real_escape_string($GLOBALS['connection'], $pass);
 
-    $userDB=mysqli_query($GLOBALS['connection'],'SELECT * FROM users Where `user_login` = "'.$userName.'" AND `user_password`="'.$pass.'"');
-    if($userDB->num_rows>0){
-        $user=$userDB->fetch_assoc();
-        $_SESSION['rank']=$user['user_rank'];
-        $_SESSION['user_name']=$user["user_login"];
-        $_SESSION['user_pass']=$user["user_password"];
-        $_SESSION['user_id']=$user['user_id'];
-        $_SESSION['user_email']=$user['user_email'];
-    }
-    else {
-       throw new Exception("Invalid username or password");
+    $userDB = mysqli_query($GLOBALS['connection'], 'SELECT * FROM users Where `user_login` = "' . $userName . '" AND `user_password`="' . $pass . '"');
+    if ($userDB->num_rows > 0) {
+        $user = $userDB->fetch_assoc();
+        $_SESSION['rank'] = $user['user_rank'];
+        $_SESSION['user_name'] = $user["user_login"];
+        $_SESSION['user_pass'] = $user["user_password"];
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_email'] = $user['user_email'];
+    } else {
+        throw new Exception("Invalid username or password");
     }
 }

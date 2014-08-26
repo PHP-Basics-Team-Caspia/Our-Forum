@@ -7,6 +7,15 @@ try {
     } else {
         $user = getUser($_SESSION['user_id']);
     }
+
+    if($user["user_avatar"]==0){
+        $dir    = 'pictures/аvatars/default/';
+        $file = scandir($dir, 1);
+        $src=$dir.$file[0];
+    }else{
+        $src='pictures/avatars/'.$users['user_id'];
+    }
+    echo "<img src=\"$src\"/>";
     echo 'User Name: ' . $user['user_login'] . "<br/>";
 
     try {

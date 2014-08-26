@@ -13,7 +13,12 @@ if ($_POST) {
     $tags = mysqli_real_escape_string($connection, $tags);
 
     try {
-        addTopic($userID, $title, $content, $tags, $category);
+        $user = getUser($userID);
+        if ($user['user_rank'] == 0 || $user['user_rank'] == -1) {
+            addTopic($userID, $title, $content, $tags, $category);
+        } else {
+            addTopic($userID, $title, $content, $tags, $category, true);
+        }
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
     }

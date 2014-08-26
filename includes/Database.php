@@ -28,11 +28,11 @@ class Database
          return self::$_instance;
      }
     //Set parameters for Databese
-     public function setParameters($host,$username,$pass,$databace){
+     public function setParameters($host,$username,$pass,$database){
          $this->host=$host;
          $this->username=$username;
          $this->pass=$pass;
-         $this->database=$databace;         
+         $this->database=$database;
      }
     //Constructor
      private function __construct(){
