@@ -1,22 +1,22 @@
 </section>
 <div id="sidebar"></div>
-<nav>
-    <ul>
-        <?php
-        $categories = getCategories();
-
-        foreach ($categories as $category) {
-            echo '<li>';
-
-            echo '<a href="' . 'index.php?catid=' . $category['category_ID'] . '">' . $category['category_name'] . '</a>';
-
-            echo '</li>';
-        }
-
-        ?>
-    </ul>
-</nav>
 <footer>
+    <nav>
+        <ul>
+            <?php
+            $categories = getCategories();
+
+            foreach ($categories as $category) {
+                echo '<li>';
+
+                echo '<a href="' . 'index.php?catid=' . $category['category_ID'] . '">' . $category['category_name'] . '</a>';
+
+                echo '</li>';
+            }
+
+            ?>
+        </ul>
+    </nav>
     <ul>
         <li>
 
