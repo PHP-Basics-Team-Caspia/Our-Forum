@@ -231,7 +231,7 @@ function getTopicsWithTag($tagName)
     $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions`");
     while ($topic = $allTopicsDB->fetch_assoc()) {
         $topicTags = explode(', ', $topic['question_tags']);
-        if (array_search($tagName, $topicTags)) {
+        if (array_search($tagName, $topicTags) !== false) {
             $topics[] = $topic;
         }
     }
