@@ -1,0 +1,19 @@
+﻿#content {
+    .contacts {
+        display:flex;
+        flex-direction:row;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 5px;
+        color: white;
+        border: 1px solid white;
+        article{
+            float:right;
+        }
+        img {
+            width: 200px;
+          height: 100%;
+            margin-right:10px;
+        }
+    }
+}
