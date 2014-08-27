@@ -21,7 +21,7 @@ ul li, a {
 body {
   margin: 0;
   height: 100%;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 16px;
   color: white; }
   body #wrapper {
@@ -54,28 +54,41 @@ body {
       margin: 5px auto;
       margin-top: 0;
       padding: 15px 35px;
-      text-align: center; }
-      body #wrapper header .headerReg {
-        text-align: right;
+      text-align: center;
+      display: flex;
+      -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+      justify-content: center; }
+      body #wrapper header .lowerHeader {
+        width: 100%;
         display: flex;
         -ms-flex-flow: row wrap;
         flex-flow: row wrap;
-        justify-content: flex-end; }
-        body #wrapper header .headerReg a {
-          text-transform: uppercase;
-          font-size: 16px; }
-      body #wrapper header div {
+        justify-content: space-between; }
+        body #wrapper header .lowerHeader .headerReg {
+          text-align: right;
+          display: flex;
+          -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+          justify-content: flex-end; }
+          body #wrapper header .lowerHeader .headerReg a {
+            text-transform: uppercase;
+            font-size: 16px; }
+      body #wrapper header .upperHeader {
         align-self: center;
         width: 100%;
         display: flex;
         -ms-flex-flow: row wrap;
         flex-flow: row wrap;
-        justify-content: center; }
-        body #wrapper header div #heading {
+        justify-content: center;
+        margin-bottom: 10px; }
+        body #wrapper header .upperHeader #heading {
+          width: 100%;
           font-size: 40px; }
-          body #wrapper header div #heading:visited {
+          body #wrapper header .upperHeader #heading:visited {
             color: white; }
-        body #wrapper header div div {
+        body #wrapper header .upperHeader div {
+          width: 100%;
           text-align: center;
           color: white;
           font-family: 'Lobster', cursive;
@@ -110,9 +123,14 @@ body {
         border: 1px solid white;
         border-radius: 10px;
         padding: 10px; }
+        body #wrapper #content section img.avatar {
+          width: 100px;
+          height: 100%; }
         body #wrapper #content section .sectionDivs {
           margin-bottom: 10px;
-          text-transform: uppercase; }
+          margin-top: 10px;
+          text-transform: uppercase;
+          font-weight: bold; }
         body #wrapper #content section form.addAnswers textarea.addAnswerContent {
           width: 100%;
           height: 200px; }
@@ -126,6 +144,8 @@ body {
             -ms-flex-flow: row wrap;
             flex-flow: row wrap;
             justify-content: space-around; }
+            body #wrapper #content section form.register div label, body #wrapper #content section form.register div select, body #wrapper #content section form.register div textarea, body #wrapper #content section form.register div input {
+              padding: 5px; }
             body #wrapper #content section form.register div label {
               width: 25%;
               margin-bottom: 5px; }
@@ -151,7 +171,7 @@ body {
           border-radius: 10px;
           width: 100%;
           margin-bottom: 20px; }
-          body #wrapper #content section table.answers tr:first-child td {
+          body #wrapper #content section table.answers td {
             border-bottom: 1px solid white; }
       body #wrapper #content aside {
         width: 25%;
@@ -182,7 +202,6 @@ body {
           padding: 10px;
           align-self: flex-start; }
           body #wrapper #content aside .socials ul {
-            font-family: 'Oswald', sans-serif;
             font-size: 30px;
             text-align: center;
             margin: 5px auto;

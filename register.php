@@ -1,19 +1,24 @@
 <?php
 $pageTitle = "Регистрация";
 include 'includes/header.php';
+echo '<div class="sectionDivs">Добре дошъл на страницата ни за регистрация!</div>';
 ?>
-    <form method="POST" enctype="multipart/form-data">
+    <form class="register" method="POST" enctype="multipart/form-data">
         <div>
-            Име:<input type="text" name="username"/>
+            <label for="username">Username:</label>
+            <input id="username" type="text" name="username"/>
         </div>
         <div>
-            Парола:<input type="password" name="pass"/>
+            <label for="pass">Парола:</label>
+            <input id="pass" type="password" name="pass"/>
         </div>
         <div>
-            e-mail:<input type="email" name="email"/>
+            <label for="email">e-mail:</label>
+            <input id="email" type="email" name="email"/>
         </div>
         <div>
-            Снимка:<input type="file" name="picture"/>
+            <label for="picture">Снимка:</label>
+            <input id="picture" type="file" name="picture"/>
         </div>
         <div>
             <input type="submit" value="Регистрация"/>
@@ -27,6 +32,7 @@ include 'includes/header.php';
             } else {
                 $reg = register($_POST['username'], $_POST['pass'], $_POST['email'], $_FILES['picture']);
             }
+                echo "Регистрацията е успешна!";
             } catch (Exception $e) {
                echo $e->getMessage();
             }
@@ -34,6 +40,9 @@ include 'includes/header.php';
         ?>
     </form>
 
+    </section>
+
+
 <?php
-include 'includes/footer.php';
-?>
+require_once 'includes/aside.php';
+require_once 'includes/footer.php';

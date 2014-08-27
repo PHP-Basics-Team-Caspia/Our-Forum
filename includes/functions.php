@@ -66,9 +66,9 @@ function getTopics($categoryID = null)
 {
     if ($categoryID !== null) {
         $category = getCategories($categoryID);
-        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_categoryID` = {$category['category_ID']} ORDER BY `question_created` DESC");
+        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_approved` = 1 AND `question_categoryID` = {$category['category_ID']} ORDER BY `question_created` DESC");
     } else {
-        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` ORDER BY `question_created` DESC");
+        $allTopicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_approved` = 1 ORDER BY `question_created` DESC");
     }
     if ($allTopicsDB == false) {
         throw new Exception('Invalid topic');
@@ -82,6 +82,7 @@ function getTopics($categoryID = null)
     }
     return $allTopics;
 }
+
 function getTopic($topicID)
 {
     $topicDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_id` = {$topicID}");
@@ -101,6 +102,7 @@ function getTopic($topicID)
 
     return $topic;
 }
+
 function getAnswersFromTopic($topicID)
 {
     $topicAnswersDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `answers` WHERE `answer_questionID` = {$topicID} ORDER BY `answer_created` ASC");
@@ -140,7 +142,7 @@ function getUserAnswers($userID)
 
 function addAnswer($topicID, $creatorID, $content)
 {
-    $content = htmlentities($content);
+    $content = htmlspecialchars($content);
     $add = mysqli_query($GLOBALS['connection'], "INSERT INTO `answers` (`answer_questionID`, `answer_creatorID`, `answer_content`)
         VALUES ({$topicID}, {$creatorID}, \"{$content}\")");
     if ($add == false) {
@@ -151,11 +153,9 @@ function addAnswer($topicID, $creatorID, $content)
 function register($username, $pass, $email, $picture = null)
 {
     $username = trim($username);
-    if ( !preg_match('/^[A-Za-z][A-Za-z0-9]{5,31}$/', $username) ){
-        echo "Wrong username!";
-        return ;
-    }
-    else{
+    if (!preg_match('/^[A-Za-z][A-Za-z0-9]{5,31}$/', $username)) {
+        throw new Exception('Wrong Username');
+    } else {
         $username = mysqli_real_escape_string($GLOBALS['connection'], $username); // make data save before send query to MySQL
         $pass = trim($pass);
         $pass = mysqli_real_escape_string($GLOBALS['connection'], $pass);
@@ -205,7 +205,7 @@ function login($userName, $pass)
     $userDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM users Where `user_login` = \"{$userName}\" AND `user_password`=\"" . md5($pass) . '"');
     if ($userDB->num_rows > 0) {
         $user = $userDB->fetch_assoc();
-        $_SESSION['rank'] = $user['user_rank'];
+        $_SESSION['user_rank'] = $user['user_rank'];
         $_SESSION['user_name'] = $user["user_login"];
         $_SESSION['user_pass'] = $user["user_password"];
         $_SESSION['user_id'] = $user['user_id'];
@@ -215,7 +215,7 @@ function login($userName, $pass)
     }
 }
 
-function searchFile($user_avatar, $user_id)
+function getAvatar($user_avatar, $user_id)
 {
     if ($user_avatar == 0) {
         $name = "defaultAvatar";
@@ -233,7 +233,7 @@ function searchFile($user_avatar, $user_id)
 function getTopicsWithTag($tagName)
 {
     $allTopicsDB = getTopics();
-    foreach($allTopicsDB as $topic) {
+    foreach ($allTopicsDB as $topic) {
         $topicTags = explode(', ', $topic['question_tags']);
         if (array_search($tagName, $topicTags) !== false) {
             $topics[] = $topic;
@@ -245,4 +245,29 @@ function getTopicsWithTag($tagName)
 
     return $topics;
 
+}
+
+function logout()
+{
+    session_destroy();
+}
+
+function search($keyword)
+{
+    $topicsDB = mysqli_query($GLOBALS['connection'], "SELECT * FROM `questions` WHERE `question_title` LIKE \"%{$keyword}%\"");
+    if ($topicsDB->num_rows == 0) {
+        throw new Exception('No topics exist');
+    }
+    while ($topic = $topicsDB->fetch_assoc()) {
+        $topics[] = $topic;
+    }
+    return $topics;
+}
+
+function makeAdmin($userID)
+{
+    $query = mysqli_query($GLOBALS['connection'], "UPDATE `users` SET `user_rank` = 2 WHERE `user_id` = \"{$userID}\"");
+    if ($query == false) {
+        throw new Exception("Unable to make user admin");
+    }
 }

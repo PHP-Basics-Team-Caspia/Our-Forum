@@ -24,10 +24,12 @@ if ($_POST) {
     }
 }
 ?>
-    <header><a href="index.php" align="center">Back To Forum</a></header>
-    <form method="POST" enctype="multipart/form-data" class="RegIn">
+<div class="sectionDivs">
+    <a href="index.php" align="center">Обратно към форума</a></div>
+    <form class="register" method="POST" enctype="multipart/form-data" class="RegIn">
         <div>
-            <label for="category">Category: </label><select name="category">
+            <label for="category">Category: </label>
+            <select name="category">
                 <?php
                 $categories = getCategories();
                 foreach ($categories as $category) {
@@ -36,11 +38,26 @@ if ($_POST) {
                 ?>
             </select>
         </div>
-        <div>Title:<input type="text" name="title"/></div>
-        <div>Content:<input type="text" name="content"/></div>
-        <div>Tags:<input type="text" name="tags"/></div>
-        <div><input type="submit" value="Добави"/></div>
+        <div>
+            <label for="title">Title:</label>
+            <input id="title" type="text" name="title"/>
+        </div>
+        <div>
+            <label for="contentQ">Content:</label>
+            <textarea id="contentQ" name="content"></textarea>
+        </div>
+        <div>
+            <label for="tags">Tags:</label>
+            <input id="tags" type="text" name="tags"/>
+        </div>
+        <div>
+            <input type="submit" value="Добави въпрос"/>
+        </div>
     </form>
+
+    </section>
+
+
 <?php
-include 'includes/footer.php';
-?>
+require_once 'includes/aside.php';
+require_once 'includes/footer.php';
